@@ -41,6 +41,7 @@
                     </li>
             </form>
             <div id="bookcontainer">
+                <template>
                 <div class="book-card">
                     <div class="title-card">Harry Potter</div>
                     <div class="author-card">J.K Rowling</div>
@@ -49,6 +50,7 @@
                     <button class="remove-card">Remove</button>
                     
                 </div>
+            </template>
             </div>
             <div id = 'test'>
                 
@@ -98,6 +100,8 @@
                     // and hopefully, return that card. 
                     const card = document.createElement('div')
                     card.classList.add('book-card')
+                    
+                    card.value = book.id
                     bookcontainer.appendChild(card)
 
                     const title = document.createElement('div')
@@ -118,8 +122,10 @@
                     const status = document.createElement('button')
                     status.classList.add('status-card')
                     status.innerText = book.status
+                    status.value = book.id
                     status.setAttribute("type", "button")
                     card.appendChild(status)
+                    status.addEventListener('click', change)
 
                     const remove = document.createElement('button')
                     remove.classList.add('remove-card')
@@ -127,7 +133,6 @@
                     remove.setAttribute("type", "button")
                     remove.value = book.id
                     card.appendChild(remove)
-                    
                     remove.addEventListener('click', use)
                     
                 
@@ -135,37 +140,47 @@
                    
                     }
                   
-                            const deleteUser = (event)=>{
-        // let's see what actually fired off the event:
-        console.log('The thing firing the event:');
-        console.log(event.target);
-        console.log('And the thing *handling* the event:');
-        console.log(event.currentTarget);
-        }
+                            
 
-
-        let trialone = [{name: 'who', with: 'never'
-    }, {name: 'this', with: 'not'
-    }
-]
-        let trialtwo = trialone.findIndex(element => element.name === 'who')
-console.log(trialtwo)
-        let trialthree = trialone.splice(trialtwo, 1)
-        console.log(trialone)
-        
-        const use = (event)=>{
-    
+//This is function to change read status. It matches using the Date ID and then reacts based on the current string value.
+        const change = (event) => {
             for (i = 0; i < myLibrary.length; i++) {
                 console.log(myLibrary[i].id)
-                console.log(event.currentTarget.value)
-                if(myLibrary[i].id === event.currentTarget.value) {
+                console.log(Number(event.currentTarget.value) )
+                if(myLibrary[i].id === Number(event.currentTarget.value) && myLibrary[i].status === "Finished") {
+                    myLibrary[i].status = "Unfinished"
+                    event.currentTarget.innerText = "Unfinished"
+                   
+                    
+                    
+                        } else if(myLibrary[i].id === Number(event.currentTarget.value) && myLibrary[i].status === "Unfinished") {
+                            myLibrary[i].status = "Finished"
+                            event.currentTarget.innerText = "Finished"
+                        }
+                    console.log(myLibrary)}
+        }
+
+      
+        //This is my remove button function. It checks against the Date ID then splices the array to remove the obj.
+        const use = (event)=>{
+            for (i = 0; i < myLibrary.length; i++) {
+                console.log(myLibrary[i].id)
+                console.log(Number(event.currentTarget.value) )
+                if(myLibrary[i].id === Number(event.currentTarget.value)) {
                     myLibrary.splice(i, 1)
+                    check = document.querySelectorAll('.book-card')
+                for (const checkk of check) {
+            checkk.classList.remove('book-card')
+            
+        }
+        }
                     
                         }
                         console.log(myLibrary)
                     }
 
-                }   
+                
+               
 
 
 
