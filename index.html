@@ -11,7 +11,11 @@
         </style>
 </head>
 <body>
+    <div class="header">The Library</div>
 <div class="container">
+    
+    <div class="form">
+        <div class="form-container">
     <form class = 'trial' id="trial">
                 <ul class="first">
                     <li>
@@ -40,6 +44,8 @@
                             
                     </li>
             </form>
+        </div>
+        </div>
             <div id="bookcontainer">
                 <template>
                 <div class="book-card">
@@ -168,16 +174,13 @@
                 console.log(Number(event.currentTarget.value) )
                 if(myLibrary[i].id === Number(event.currentTarget.value)) {
                     myLibrary.splice(i, 1)
-                    check = document.querySelectorAll('.book-card')
-                for (const checkk of check) {
-            checkk.classList.remove('book-card')
-            
+                    event.currentTarget.closest('.book-card').remove();
         }
         }
                     
                         }
                         console.log(myLibrary)
-                    }
+                    
 
                 
                
